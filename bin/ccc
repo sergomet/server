@@ -1,0 +1,21 @@
+server {
+    listen 80;
+
+    root aaa;
+    index index.php index.html index.html;
+    server_name ccc;
+
+    location / {
+        try_files  / /index.php?;
+
+    }
+
+    location ~ \.php$ {
+        try_files  =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME ;
+        include fastcgi_params;
+    }
+}
